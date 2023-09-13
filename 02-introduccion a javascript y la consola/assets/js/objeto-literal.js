@@ -16,3 +16,6 @@ let personaje = {
 
 console.log( "Nombre:", personaje.nombre);
 console.log( "Nombre:", personaje["nombre"]);
+
+console.log( "No. Trajes", personaje.trajes.length );
+console.log( "Último traje", personaje.trajes[ personaje.trajes.length - 1 ] );
