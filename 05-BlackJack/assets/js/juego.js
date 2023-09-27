@@ -24,7 +24,6 @@ const crearDeck = () => {
         }
     }
 
-    // console.log( deck );
     deck = _.shuffle( deck );
     console.log( deck );
     return deck;
@@ -47,4 +46,18 @@ const pedirCarta = () => {
 
 }
 
-pedirCarta();
+// pedirCarta();
+
+// Esta función permite obtener el valor de la carta
+const valorCarta = (carta) => {
+
+    const valor = carta.substring(0, carta.length - 1);
+
+    return ( valor === "A" )  ? 11 :
+           ( isNaN( valor ) ) ? 10 : valor * 1
+
+};
+
+
+const valor = valorCarta( pedirCarta() );
+console.log({ valor });
