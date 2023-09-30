@@ -14,9 +14,14 @@ let puntosJugador = 0,
     puntosComputadora = 0;
 
 // Referencias del HTML
-const btnPedir = document.querySelector("#btnPedir");
+const btnPedir   = document.querySelector("#btnPedir");
+const btnDetener = document.querySelector("#btnDetener");
+const btnNuevo   = document.querySelector("#btnNuevo");
+
 const puntosHTML = document.querySelectorAll("small");
-const divCartasJugador = document.querySelector("#jugador-cartas");
+
+const divCartasJugador     = document.querySelector("#jugador-cartas");
+const divCartasComputadora = document.querySelector("#computadora-cartas");
 
 
 // Esta función crea una nueva baraja
@@ -66,6 +71,30 @@ const valorCarta = (carta) => {
 
 };
 
+
+// Turno de la computadora
+const turnoComputadora = ( puntosMinimos ) => {
+
+    do{
+        const carta = pedirCarta();
+        puntosComputadora = puntosComputadora + valorCarta( carta );
+        puntosHTML[1].innerText = puntosComputadora;
+
+        const imgCarta = document.createElement('img');
+        imgCarta.src = `assets/cartas/${ carta }.png`;
+
+        imgCarta.classList.add('carta');
+
+        divCartasComputadora.append( imgCarta );
+
+        if( puntosMinimos > 21) {
+            break;
+        }
+
+    } while( (puntosComputadora < puntosMinimos) && (puntosMinimos <= 21) );
+};
+
+
 // Eventos
 btnPedir.addEventListener('click', () => {
     
@@ -81,10 +110,30 @@ btnPedir.addEventListener('click', () => {
     divCartasJugador.append( imgCarta );
 
     if( puntosJugador > 21 ) {
+
         console.warn("Perdiste!");
-        btnPedir.disabled = true;
+        btnDetener.disabled = true;
+        btnPedir.disabled   = true;
+        turnoComputadora( puntosJugador );
+
     } else if ( puntosJugador === 21 ) {
+
         console.warn("21!");
+        btnDetener.disabled = true;
+        btnPedir.disabled   = true;
+        turnoComputadora( puntosJugador );
+
     } 
 
 });
+
+
+btnDetener.addEventListener('click', () => {
+
+    btnDetener.disabled = true;
+    btnPedir.disabled   = true;
+
+    turnoComputadora( puntosJugador );
+
+});
+
