@@ -40,7 +40,7 @@ const crearDeck = () => {
     }
 
     deck = _.shuffle( deck );
-    console.log( deck );
+    // console.log( deck );
     return deck;
 
 };
@@ -59,7 +59,6 @@ const pedirCarta = () => {
 
 }
 
-// pedirCarta();
 
 // Esta función permite obtener el valor de la carta
 const valorCarta = (carta) => {
@@ -92,7 +91,24 @@ const turnoComputadora = ( puntosMinimos ) => {
         }
 
     } while( (puntosComputadora < puntosMinimos) && (puntosMinimos <= 21) );
+
+    setTimeout(() => {
+
+        if( puntosMinimos === puntosComputadora ){
+            alert("Nadie gana!");
+        } else if ( puntosMinimos > 21 ) {
+            alert("Computadora gana!");
+        } else if ( puntosComputadora > 21 ) {
+            alert("Jugador gana!");
+        } else {
+            alert("Computadora gana!");
+        }
+
+    }, 200);
+   
 };
+
+
 
 
 // Eventos
@@ -134,6 +150,28 @@ btnDetener.addEventListener('click', () => {
     btnPedir.disabled   = true;
 
     turnoComputadora( puntosJugador );
+
+});
+
+
+btnNuevo.addEventListener('click', () => {
+
+    console.clear();
+
+    btnDetener.disabled = false;
+    btnPedir.disabled   = false;
+
+    puntosJugador     = 0;
+    puntosComputadora = 0;
+
+    deck = [];
+    deck = crearDeck();
+
+    divCartasComputadora.innerHTML = '';
+    divCartasJugador.innerHTML     = '';
+
+    puntosHTML[0].innerText = 0;
+    puntosHTML[1].innerText = 0;
 
 });
 
