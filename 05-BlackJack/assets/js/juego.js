@@ -10,23 +10,30 @@
     'use strict'
 
     let deck            = [];
-    const tipos         = ['C', 'D', 'H', 'S'];
-    const especiales    = ['A', 'J', 'Q', 'K'];
+    const tipos         = ['C', 'D', 'H', 'S'],
+          especiales    = ['A', 'J', 'Q', 'K'];
 
-
-    let puntosJugador = 0,
-        puntosComputadora = 0;
+    let puntosJugadores = [];
 
     // Referencias del HTML
-    const btnPedir   = document.querySelector("#btnPedir");
-    const btnDetener = document.querySelector("#btnDetener");
-    const btnNuevo   = document.querySelector("#btnNuevo");
+    const btnPedir   = document.querySelector("#btnPedir"),
+          btnDetener = document.querySelector("#btnDetener"),
+          btnNuevo   = document.querySelector("#btnNuevo");
 
-    const puntosHTML = document.querySelectorAll("small");
 
-    const divCartasJugador     = document.querySelector("#jugador-cartas");
-    const divCartasComputadora = document.querySelector("#computadora-cartas");
+    const divCartasJugador     = document.querySelector("#jugador-cartas"),
+          divCartasComputadora = document.querySelector("#computadora-cartas"),
+          puntosHTML           = document.querySelectorAll("small");
 
+
+    // Esta función inicializa el juego
+    const inicializarJuego = ( numJugadores = 1 ) => {
+        deck = crearDeck();
+        for ( let i = 0; i < numJugadores; i++) {
+            puntosJugadores.push(0);
+        }
+        console.log({ puntosJugadores });
+    };
 
     // Esta función crea una nueva baraja
     const crearDeck = () => {
@@ -43,13 +50,9 @@
             }
         }
 
-        deck = _.shuffle( deck );
-        // console.log( deck );
-        return deck;
+        return _.shuffle( deck );
 
     };
-
-    crearDeck();
 
 
     // Esta función me permite tomar una carta
@@ -59,8 +62,7 @@
             throw "No hay más cartas en el deck";
         }
 
-        let carta = deck.pop();
-        return carta;
+        return deck.pop();
 
     }
 
@@ -75,6 +77,10 @@
 
     };
 
+
+    const acumularPuntos = () => {
+
+    };
 
     // Turno de la computadora
     const turnoComputadora = ( puntosMinimos ) => {
@@ -161,6 +167,9 @@
 
     btnNuevo.addEventListener('click', () => {
 
+        // deck = crearDeck();
+        inicializarJuego(1);
+
         console.clear();
 
         btnDetener.disabled = false;
@@ -168,9 +177,6 @@
 
         puntosJugador     = 0;
         puntosComputadora = 0;
-
-        deck = [];
-        deck = crearDeck();
 
         divCartasComputadora.innerHTML = '';
         divCartasJugador.innerHTML     = '';
@@ -182,7 +188,4 @@
 
 
 })();
-
-
-
 
