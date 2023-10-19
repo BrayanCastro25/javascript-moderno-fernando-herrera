@@ -8,7 +8,7 @@ export const createTodoHTML = ( todo ) => {
     const html = `
         <div class="view">
             <input class="toggle" type="checkbox" ${ todo.done ? 'checked' : ''}>
-            <label>Probar JavaScript</label>
+            <label>${ todo.description }</label>
             <button class="destroy"></button>
         </div>
         <input class="edit" value="Create a TodoMVC template">
